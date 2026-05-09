@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spam SMS Detection</title>
+
+    <style>
+
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #141e30,
+                #243b55
+            );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .container {
+
+            width: 70%;
+
+            max-width: 800px;
+
+            background-color: rgba(255,255,255,0.08);
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
+
+            text-align: center;
+        }
+
+        h1 {
+
+            font-size: 42px;
+
+            margin-bottom: 30px;
+        }
+
+        textarea {
+
+            width: 90%;
+
+            height: 180px;
+
+            padding: 15px;
+
+            font-size: 18px;
+
+            border-radius: 12px;
+
+            border: none;
+
+            resize: none;
+
+            outline: none;
+
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+
+            margin-top: 10px;
+        }
+
+        button {
+
+            background-color: #00c6ff;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 30px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            margin: 10px;
+        }
+
+        button:hover {
+
+            transform: scale(1.05);
+
+            box-shadow: 0px 0px 15px #00c6ff;
+        }
+
+        .clear-btn {
+
+            background-color: #ff4b5c;
+        }
+
+        .clear-btn:hover {
+
+            box-shadow: 0px 0px 15px #ff4b5c;
+        }
+
+        .result-box {
+
+            margin-top: 30px;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            font-size: 26px;
+
+            font-weight: bold;
+        }
+
+        .spam {
+
+            background-color: rgba(255, 0, 0, 0.2);
+
+            border: 2px solid red;
+        }
+
+        .ham {
+
+            background-color: rgba(0, 255, 0, 0.2);
+
+            border: 2px solid lime;
+        }
+
+        .warning {
+
+            color: orange;
+
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>📩 Spam SMS Detection</h1>
+
+        <form method="POST">
+
+            <textarea
+                id="messageBox"
+                name="message"
+                placeholder="Enter SMS message here..."
+                required
+            >{{ message }}</textarea>
+
+            <br>
+
+            <div class="button-group">
+
+                <button type="submit">
+                    Check Message
+                </button>
+
+                <button
+                    type="button"
+                    class="clear-btn"
+                    onclick="clearText()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </form>
+
+        {% if prediction %}
+
+            <div class="result-box
+                {% if 'SPAM MESSAGE' in prediction %}
+                    spam
+                {% else %}
+                    ham
+                {% endif %}
+            ">
+
+                {% if warning %}
+
+                    <div class="warning">
+
+                        {{ warning }}
+
+                    </div>
+
+                {% endif %}
+
+                {{ prediction }}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <script>
+
+        function clearText() {
+
+            document.getElementById("messageBox").value = "";
+
+            window.location.href = "/";
+        }
+
+    </script>
+
+</body>
+
+</html>
